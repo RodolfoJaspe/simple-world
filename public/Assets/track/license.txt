@@ -1,0 +1,11 @@
+Model Information:
+* title:	sonic-rangers-multiplayer-race-track-2
+* source:	https://sketchfab.com/3d-models/sonic-rangers-multiplayer-race-track-2-445fcf64f4684d858f42c6998eabe0cc
+* author:	Accountnamed334 (https://sketchfab.com/Accountnamed334)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "sonic-rangers-multiplayer-race-track-2" (https://sketchfab.com/3d-models/sonic-rangers-multiplayer-race-track-2-445fcf64f4684d858f42c6998eabe0cc) by Accountnamed334 (https://sketchfab.com/Accountnamed334) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

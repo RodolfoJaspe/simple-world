@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gate_01
+* source:	https://sketchfab.com/3d-models/gate-01-97ca5ddd1e3b4346a6d3659525dc9263
+* author:	Luca Giardina (https://sketchfab.com/Blulike1969)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gate_01" (https://sketchfab.com/3d-models/gate-01-97ca5ddd1e3b4346a6d3659525dc9263) by Luca Giardina (https://sketchfab.com/Blulike1969) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
