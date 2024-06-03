@@ -3,17 +3,18 @@ import nipplejs from 'nipplejs';
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import Car from './Car';
-import { RigidBody } from '@react-three/rapier';
+
 
 const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
     const carRef = useRef();
+    const wheelsRef = useRef({});
     const { camera } = useThree();
     const [invalidStateTime, setInvalidStateTime] = useState(0);
     const [acceleration, setAcceleration] = useState(0);
     const maxAcceleration = 50; // Max acceleration force
     const accelerationStep = 0.08; // Step to increase acceleration
-    const initialPosition = useRef(new THREE.Vector3(0, 1, 0));
-    const initialRotation = useRef(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, -Math.PI / 2, 0)));
+    const initialPosition = useRef(new THREE.Vector3(0, 4, 0));
+    const initialRotation = useRef(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, 0)));
     const [isMoving, setIsMoving] = useState(false);
 
 
@@ -90,17 +91,22 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
     }, [keys]);
 
     useFrame((state, delta) => {
+
         if (carRef.current) {
-
-            const rigidBody = carRef.current;
-
             const {
                 leftFrontRim, 
                 leftFrontTire, 
                 rightFrontRim, 
                 rightFrontTire, 
                 rearRims, 
-                rearTires} = rigidBody.userData
+                rearTires} = wheelsRef.current;
+
+            //initial camera position based on car position
+
+            const rigidBody = carRef.current; 
+            const carPosition = new THREE.Vector3(rigidBody.translation().x, rigidBody.translation().y, rigidBody.translation().z);
+            camera.lookAt(carPosition);
+            const frontWheelPieces = [leftFrontRim,leftFrontTire,rightFrontRim,rightFrontTire]
         
             const linvel = rigidBody.linvel();
             const angvel = rigidBody.angvel();
@@ -108,36 +114,19 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
             // Get the up vector of the car
             const up = new THREE.Vector3(0, 1, 0).applyQuaternion(rigidBody.rotation());
 
-            // Check if the car is not upright
-            if (up.y < 0.5) {
-                setInvalidStateTime((prev) => prev + delta);
-                // Disable controls if the car is not upright
-                keys.ArrowUp = false;
-                keys.ArrowDown = false;
-                keys.ArrowLeft = false;
-                keys.ArrowRight = false;
-                if (invalidStateTime > 5) {
-                    rigidBody.setTranslation(initialPosition.current, true);
-                    rigidBody.setRotation(initialRotation.current, true);
-                    rigidBody.setLinvel({ x: 0, y: 0, z: 0 }, true);
-                    rigidBody.setAngvel({ x: 0, y: 0, z: 0 }, true);
-                    setInvalidStateTime(0);
-                }
-            } else {
-                setInvalidStateTime(0);
-            }
-
             // Get the forward vector of the car
             const forward = new THREE.Vector3(0, 0, -1);
             forward.applyQuaternion(rigidBody.rotation());
 
             // Apply forward and backward forces with gradual acceleration
             if (keys.ArrowUp) {
+
                 setAcceleration((prev) => Math.min(prev + accelerationStep, maxAcceleration));
                 
             } else if (keys.ArrowDown) {
                 setAcceleration((prev) => Math.max(prev - accelerationStep, -maxAcceleration));
-            } else {
+            } 
+            else {
                 setAcceleration((prev) => prev * 0.98);
             }
 
@@ -146,60 +135,45 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
 
             // Calculate the speed to scale turning
             const speed = Math.sqrt(linvel.x * linvel.x + linvel.z * linvel.z);
-
             // Apply turning forces only if the car is moving
-            if (speed > 1) {
-                const turnIntensity = Math.max(0.1, .01 - speed / 20); // Scale turning based on speed
-                if (keys.ArrowLeft) {
+            if (speed > .5) {
+                const turnIntensity = .05
+                // const turnIntensity = Math.max(0.1, .01 - speed / 20); 
+                // Scale turning based on speed
+                if (keys.ArrowLeft && acceleration > 0) {
                     angvel.y += turnIntensity;
                 }
-                if (keys.ArrowRight) {
+                if (keys.ArrowRight && acceleration > 0) {
                     angvel.y -= turnIntensity;
                 }
+                if (keys.ArrowLeft && acceleration < 0) {
+                    angvel.y -= turnIntensity;
+                }
+                if (keys.ArrowRight && acceleration < 0) {
+                    angvel.y += turnIntensity;
+                }
             }
-            if(speed > 10){
+            if(speed > 15){
                 setIsMoving(true);
             }else{
                 setIsMoving(false)
             }
 
             // Update wheels rotation
-            if (rigidBody.userData) {
+            if (wheelsRef) {
                 const wheelRotationSpeed = acceleration * delta;
                 rearRims.rotation.x += wheelRotationSpeed
                 rearTires.rotation.x += wheelRotationSpeed
-                leftFrontRim.rotation.x += wheelRotationSpeed
-                leftFrontTire.rotation.x += wheelRotationSpeed
-                rightFrontRim.rotation.x += wheelRotationSpeed
-                rightFrontTire.rotation.x += wheelRotationSpeed
 
+                const steerAngle = keys.ArrowLeft ? 0.5 : keys.ArrowRight ? -0.5 : 0;
+                frontWheelPieces.forEach(piece => {
+                    let vector = new THREE.Vector3(piece.rotation.x, piece.rotation.y, steerAngle)
+                    piece.rotation.z = steerAngle
+                    piece.rotation.setFromVector3(vector, 'YZX')
+                    piece.rotation.x += wheelRotationSpeed
+                    })
                 
-
-
-                // // Rotate the wheels around their local x-axis
-                // leftFrontRim.rotateOnAxis(new THREE.Vector3(1, 0, 0), wheelRotationSpeed);
-                // leftFrontTire.rotateOnAxis(new THREE.Vector3(1, 0, 0), wheelRotationSpeed);
-                // rightFrontRim.rotateOnAxis(new THREE.Vector3(1, 0, 0), wheelRotationSpeed);
-                // rightFrontTire.rotateOnAxis(new THREE.Vector3(1, 0, 0), wheelRotationSpeed);
-                // rearRims.rotateOnAxis(new THREE.Vector3(1, 0, 0), wheelRotationSpeed);
-                // rearTires.rotateOnAxis(new THREE.Vector3(1, 0, 0), wheelRotationSpeed);
-
-
-                if (keys.ArrowLeft || keys.ArrowRight) {
-                    const steerAngle = keys.ArrowLeft ? 0.5 : keys.ArrowRight ? -0.5 : 0;
-                    leftFrontRim.rotation.z = steerAngle;
-                    rightFrontRim.rotation.z = steerAngle;
-                    leftFrontTire.rotation.z = steerAngle;
-                    rightFrontTire.rotation.z = steerAngle;
-                } else {
-                    leftFrontRim.rotation.z = 0;
-                    rightFrontRim.rotation.z = 0;
-                    leftFrontTire.rotation.z = 0;
-                    rightFrontTire.rotation.z = 0;
-                }
             }
-
-        
 
             // Apply deceleration to angular velocity
             angvel.y *= 0.95;
@@ -223,10 +197,38 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
                 setCarPosition(carPosition)
                 setOrbitEnabled(true);
             }
+
+            // Check if the car is not upright
+            if (up.y < 0.5) {
+                setInvalidStateTime((prev) => prev + delta);
+                // Disable controls if the car is not upright
+                keys.ArrowUp = false;
+                keys.ArrowDown = false;
+                keys.ArrowLeft = false;
+                keys.ArrowRight = false;
+                if (invalidStateTime > 5) {
+                    console.log("crashed");
+                    // Reset position and rotation
+                    rigidBody.setTranslation(initialPosition.current, true);
+                    rigidBody.setRotation(initialRotation.current, true);
+                    // Reset velocity
+                    rigidBody.setLinvel({ x: 0, y: 0, z: 0 }, true);
+                    rigidBody.setAngvel({ x: 0, y: 0, z: 0 }, true);
+                    // camera reset to initial position
+                    const carPosition = new THREE.Vector3(rigidBody.translation().x, rigidBody.translation().y, rigidBody.translation().z);
+                    const carDirection = new THREE.Vector3(5, 2, 9).applyQuaternion(rigidBody.rotation());
+                    const cameraPosition = carPosition.clone().add(carDirection.clone().multiplyScalar(1));
+                    camera.position.copy(cameraPosition);
+                    camera.lookAt(carPosition);
+                    setInvalidStateTime(0);
+                }
+            } else {
+                setInvalidStateTime(0);
+            }
         }
     });
 
-    return <Car ref={carRef} camera={camera} />;
+    return <Car ref={carRef} wheelsRef={wheelsRef} camera={camera} />;
 };
 
 export default CarControls

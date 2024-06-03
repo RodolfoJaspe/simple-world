@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
-const Car = forwardRef(({ camera }, ref) => {
+const Car = forwardRef(({ camera, wheelsRef }, ref) => {
     const gltf = useLoader(GLTFLoader, '/Assets/car/scene.gltf');
     // Enable shadows on the car mesh
     gltf.scene.traverse((child) => {
@@ -13,7 +13,6 @@ const Car = forwardRef(({ camera }, ref) => {
             child.receiveShadow = true;
         }
     });
-
 
     // Extract wheels for rotation
     const wheels = {
@@ -25,17 +24,21 @@ const Car = forwardRef(({ camera }, ref) => {
         rearTires: gltf.scene.getObjectByName('rear_tires'),
     };
 
+    // Store wheels in wheelsRef
+    if (wheelsRef && wheelsRef.current) {
+        wheelsRef.current = wheels;
+    }
+
     return (
         <RigidBody 
             type="dynamic" 
-            position={[0, 1, -1]} 
-            rotation={[0, Math.PI / 2, 0]} 
+            position={[0, 4, -1]} 
+            rotation={[0, 1, 0]} 
             colliders="hull" 
-            mass={10000}
+            mass={1000}
             linearDamping={1} 
-            angularDamping={5} 
+            angularDamping={1} 
             gravityScale={2}
-            userData={wheels}
             ref={ref}
         >
             <primitive object={gltf.scene} scale={1} castShadow receiveShadow />

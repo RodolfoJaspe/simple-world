@@ -13,7 +13,7 @@ function App() {
     return (
         <div className='App'>
             <Canvas shadows >
-                <Physics gravity={[0, -9.81, 0]} integrationParameters={{ maxVelocityIterations: 16, maxVelocityFrictionIterations: 8 }}>
+                <Physics gravity={[0, -20, 0]} integrationParameters={{ maxVelocityIterations: 16, maxVelocityFrictionIterations: 8 }}>
                     <ambientLight intensity={1} />
                     <directionalLight 
                         position={[800, 300, 100]} 
