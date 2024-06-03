@@ -102,14 +102,6 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
                 rearTires} = wheelsRef.current;
 
             //initial camera position based on car position
-<<<<<<< HEAD
-=======
-
-            const rigidBody = carRef.current; 
-            const carPosition = new THREE.Vector3(rigidBody.translation().x, rigidBody.translation().y, rigidBody.translation().z);
-            const carDirection = new THREE.Vector3(6, 4, 8).applyQuaternion(rigidBody.rotation());
-            const cameraPosition = carPosition.clone().add(carDirection.clone().multiplyScalar(1));
->>>>>>> b662d00 (wheels rotation and acr reset working)
 
             const rigidBody = carRef.current; 
             const carPosition = new THREE.Vector3(rigidBody.translation().x, rigidBody.translation().y, rigidBody.translation().z);
