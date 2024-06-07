@@ -1,0 +1,11 @@
+Model Information:
+* title:	Billboard - Lowpoly
+* source:	https://sketchfab.com/3d-models/billboard-lowpoly-baadeaf2bab344a4a909f6d3a19375b7
+* author:	rkmorello (https://sketchfab.com/rkmorello)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Billboard - Lowpoly" (https://sketchfab.com/3d-models/billboard-lowpoly-baadeaf2bab344a4a909f6d3a19375b7) by rkmorello (https://sketchfab.com/rkmorello) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -33,7 +33,7 @@ const Car = forwardRef(({ camera, wheelsRef }, ref) => {
         <RigidBody 
             type="dynamic" 
             position={[0, 4, -1]} 
-            rotation={[0, 1, 0]} 
+            rotation={[0, -2, 0]} 
             colliders="hull" 
             mass={1000}
             linearDamping={1} 

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Billboard
+* source:	https://sketchfab.com/3d-models/billboard-d3a41eeeeccb4d488e7872c130739574
+* author:	SamuelArnold (https://sketchfab.com/samuelarnold)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Billboard" (https://sketchfab.com/3d-models/billboard-d3a41eeeeccb4d488e7872c130739574) by SamuelArnold (https://sketchfab.com/samuelarnold) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

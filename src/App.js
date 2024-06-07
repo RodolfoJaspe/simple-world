@@ -1,9 +1,10 @@
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import React, { useState } from 'react';
 import "./App.css";
 import CarControls from './components/CarControls';
+import ProjectBillboard from './components/ProjectBillboard';
 import Track from './components/Track';
 
 function App() {
@@ -13,10 +14,17 @@ function App() {
     return (
         <div className='App'>
             <Canvas shadows >
+                <PerspectiveCamera
+                    makeDefault
+                    position={[0, 1, 5]} // Initial camera position
+                    fov={75} // Field of view
+                    near={0.1} // Near clipping plane
+                    far={3000} // Far clipping plane to render distant objects
+                />
                 <Physics gravity={[0, -20, 0]} integrationParameters={{ maxVelocityIterations: 16, maxVelocityFrictionIterations: 8 }}>
                     <ambientLight intensity={1} />
                     <directionalLight 
-                        position={[800, 300, 100]} 
+                        position={[400, 150, 50]} 
                         intensity={2} 
                         castShadow 
                         penumbra={1}
@@ -39,6 +47,7 @@ function App() {
                     </directionalLight>
                     <CarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition}/>
                     <Track />
+                    <ProjectBillboard />
                     {orbitEnabled && <OrbitControls target={carPosition}/>}
                 </Physics>
             </Canvas>

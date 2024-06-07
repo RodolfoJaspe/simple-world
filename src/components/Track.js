@@ -7,6 +7,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export default function Track () {
     const gltf = useLoader(GLTFLoader, '/Assets/track/scene.gltf');
+
     gltf.scene.traverse((child) => {
         if (child.isMesh) {
             child.castShadow = true;
