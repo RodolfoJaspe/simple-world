@@ -34,7 +34,7 @@ const Car = forwardRef(({ camera, wheelsRef }, ref) => {
             type="dynamic" 
             position={[0, 4, -1]} 
             rotation={[0, -2, 0]} 
-            colliders="hull" 
+            colliders="cuboid" 
             mass={1000}
             linearDamping={1} 
             angularDamping={1} 

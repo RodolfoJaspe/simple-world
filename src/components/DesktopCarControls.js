@@ -1,5 +1,4 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import nipplejs from 'nipplejs';
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import Car from './Car';
@@ -42,52 +41,11 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
 
-        // Initialize the joystick
-        const joystick = nipplejs.create({
-            zone: document.getElementById('joystick-container'),
-            mode: 'static',
-            position: { left: '50%', bottom: '50px' },
-            color: 'white'
-        });
-
-        joystick.on('move', (evt, data) => {
-            const { angle, force } = data;
-            if (angle.degree > 25 && angle.degree < 155) {
-                keys.ArrowUp = true;
-                keys.ArrowDown = false;
-            } else if (angle.degree > 205 && angle.degree < 335) {
-                keys.ArrowUp = false;
-                keys.ArrowDown = true;
-            } else {
-                keys.ArrowUp = false;
-                keys.ArrowDown = false;
-            }
-
-            if (angle.degree > 115 && angle.degree < 245) {
-                keys.ArrowLeft = true;
-                keys.ArrowRight = false;
-            } else if (angle.degree > 295 || angle.degree < 65) {
-                keys.ArrowLeft = false;
-                keys.ArrowRight = true;
-            } else {
-                keys.ArrowLeft = false;
-                keys.ArrowRight = false;
-            }
-        });
-
-        joystick.on('end', () => {
-            keys.ArrowUp = false;
-            keys.ArrowDown = false;
-            keys.ArrowLeft = false;
-            keys.ArrowRight = false;
-        });
-
         return () => {
 
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
 
-            joystick.destroy();
         };
     }, [keys]);
 

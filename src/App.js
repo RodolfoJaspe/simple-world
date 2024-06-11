@@ -3,7 +3,9 @@ import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import React, { useState } from 'react';
 import "./App.css";
-import CarControls from './components/CarControls';
+import DesktopCarControls from './components/DesktopCarControls';
+import MobileCarControls from './components/MobileCarControls';
+
 import ProjectBillboard from './components/ProjectBillboard';
 import Track from './components/Track';
 
@@ -45,7 +47,7 @@ function App() {
                         shadow-normalBias={1}>
                         <orthographicCamera attach="shadow-camera" args={[-400, 500, 400, -100]}/>
                     </directionalLight>
-                    <CarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition}/>
+                    {window.innerWidth > 1000? <DesktopCarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition}/>: <MobileCarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition}/>}
                     <Track />
                     <ProjectBillboard />
                     {orbitEnabled && <OrbitControls target={carPosition}/>}
