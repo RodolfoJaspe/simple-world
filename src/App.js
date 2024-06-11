@@ -11,8 +11,6 @@ function App() {
     const [orbitEnabled, setOrbitEnabled] = useState(true);
     const [carPosition, setCarPosition] = useState([0,0,0])
 
-    //test
-
     return (
         <div className='App'>
             <Canvas shadows >

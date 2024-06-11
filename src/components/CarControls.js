@@ -9,6 +9,7 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
     const carRef = useRef();
     const wheelsRef = useRef({});
     const { camera } = useThree();
+    
     const [invalidStateTime, setInvalidStateTime] = useState(0);
     const [acceleration, setAcceleration] = useState(0);
     const maxAcceleration = 50; // Max acceleration force
@@ -46,15 +47,15 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
             zone: document.getElementById('joystick-container'),
             mode: 'static',
             position: { left: '50%', bottom: '50px' },
-            color: 'blue'
+            color: 'white'
         });
 
         joystick.on('move', (evt, data) => {
             const { angle, force } = data;
-            if (angle.degree > 45 && angle.degree < 135) {
+            if (angle.degree > 25 && angle.degree < 155) {
                 keys.ArrowUp = true;
                 keys.ArrowDown = false;
-            } else if (angle.degree > 225 && angle.degree < 315) {
+            } else if (angle.degree > 205 && angle.degree < 335) {
                 keys.ArrowUp = false;
                 keys.ArrowDown = true;
             } else {
@@ -62,10 +63,10 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
                 keys.ArrowDown = false;
             }
 
-            if (angle.degree > 135 && angle.degree < 225) {
+            if (angle.degree > 115 && angle.degree < 245) {
                 keys.ArrowLeft = true;
                 keys.ArrowRight = false;
-            } else if (angle.degree > 315 || angle.degree < 45) {
+            } else if (angle.degree > 295 || angle.degree < 65) {
                 keys.ArrowLeft = false;
                 keys.ArrowRight = true;
             } else {
