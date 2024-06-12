@@ -25,6 +25,22 @@ function App() {
                 />
                 <Physics gravity={[0, -20, 0]} integrationParameters={{ maxVelocityIterations: 16, maxVelocityFrictionIterations: 8 }}>
                     <ambientLight intensity={1} />
+
+                    {/* lights on zaniac billboard */}
+                    <pointLight position={[248,85,570]} intensity={2000} color={'white'}/>
+                    <pointLight position={[200,80,500]} intensity={2000} color={'white'}/>
+
+                    {/* lights on rd billboard */}
+                    <pointLight position={[0,85,460]} intensity={5000}/>
+                    <pointLight position={[50,80,530]} intensity={5000}/>
+
+                    {/* lights on dayana billboard */}
+                    <pointLight position={[505, 25, 100]} intensity={1000} />
+                    <pointLight position={[495, 25, 80]} intensity={1000} />
+                    <pointLight position={[485, 25, 60]} intensity={1000} />
+                    <pointLight position={[475, 25, 38]} intensity={1000} />
+                    <pointLight position={[465, 25, 15]} intensity={1000} />
+
                     <directionalLight 
                         position={[400, 150, 50]} 
                         intensity={2} 
@@ -49,7 +65,8 @@ function App() {
                     </directionalLight>
                     {window.innerWidth > 1000? <DesktopCarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition}/>: <MobileCarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition}/>}
                     <Track />
-                    <ProjectBillboard />
+                    <ProjectBillboard modelLocation={'/Assets/billboards/billboard2/scene.gltf'} position={[500, 55, 50]} rotation={[0, -Math.PI / 2.7, 0]} scale={3} castShadow/>
+                    <ProjectBillboard modelLocation={'/Assets/billboards/billboard4/scene.gltf'} position={[100, -30, 530]} rotation={[0, Math.PI *1.03, 0]} scale={1.3} castShadow/>
                     {orbitEnabled && <OrbitControls target={carPosition}/>}
                 </Physics>
             </Canvas>

@@ -11,8 +11,7 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				27,
-				28
+				27
 			]
 		}
 	],
@@ -304,20 +303,6 @@
 				0,
 				0,
 				0.7071066498756409
-			]
-		},
-		{
-			"mesh":16,
-			"name":"billboard_surface",
-			"scale":[
-				16.589645385742188,
-				9.979523658752441,
-				0.20681607723236084
-			],
-			"translation":[
-				-0.39021578431129456,
-				0,
-				0.46813738346099854
 			]
 		}
 	],
@@ -665,19 +650,6 @@
 					},
 					"indices":55,
 					"material":7
-				}
-			]
-		},
-		{
-			"name":"Cube.001",
-			"primitives":[
-				{
-					"attributes":{
-						"POSITION":56,
-						"NORMAL":57,
-						"TEXCOORD_0":58
-					},
-					"indices":59
 				}
 			]
 		}
@@ -1195,40 +1167,6 @@
 			"componentType":5123,
 			"count":54,
 			"type":"SCALAR"
-		},
-		{
-			"bufferView":56,
-			"componentType":5126,
-			"count":24,
-			"max":[
-				1,
-				1,
-				1
-			],
-			"min":[
-				-1,
-				-1,
-				-1
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":57,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":58,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":59,
-			"componentType":5123,
-			"count":36,
-			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -1567,30 +1505,6 @@
 			"byteLength":108,
 			"byteOffset":134532,
 			"target":34963
-		},
-		{
-			"buffer":0,
-			"byteLength":288,
-			"byteOffset":134640,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":288,
-			"byteOffset":134928,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":192,
-			"byteOffset":135216,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":72,
-			"byteOffset":135408,
-			"target":34963
 		}
 	],
 	"samplers":[
@@ -1601,7 +1515,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":135480,
+			"byteLength":134640,
 			"uri":"scene.bin"
 		}
 	]

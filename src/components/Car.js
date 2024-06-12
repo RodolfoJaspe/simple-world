@@ -3,9 +3,9 @@ import { RigidBody } from '@react-three/rapier';
 import React, { forwardRef } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-
 const Car = forwardRef(({ camera, wheelsRef }, ref) => {
     const gltf = useLoader(GLTFLoader, '/Assets/car/scene.gltf');
+
     // Enable shadows on the car mesh
     gltf.scene.traverse((child) => {
         if (child.isMesh) {
@@ -36,9 +36,9 @@ const Car = forwardRef(({ camera, wheelsRef }, ref) => {
             rotation={[0, -2, 0]} 
             colliders="cuboid" 
             mass={1000}
-            linearDamping={1} 
-            angularDamping={1} 
-            gravityScale={2}
+            linearDamping={0} 
+            angularDamping={.5} 
+            gravityScale={1}
             ref={ref}
         >
             <primitive object={gltf.scene} scale={1} castShadow receiveShadow />
