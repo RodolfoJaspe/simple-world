@@ -1,0 +1,11 @@
+Model Information:
+* title:	Experience the tranquility of the seaside
+* source:	https://sketchfab.com/3d-models/experience-the-tranquility-of-the-seaside-9a7a018ae30842349ba1449f6cc0e9b7
+* author:	UJWAL (https://sketchfab.com/Ujwal-Chauhan)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Experience the tranquility of the seaside" (https://sketchfab.com/3d-models/experience-the-tranquility-of-the-seaside-9a7a018ae30842349ba1449f6cc0e9b7) by UJWAL (https://sketchfab.com/Ujwal-Chauhan) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
