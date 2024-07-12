@@ -5,24 +5,21 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 const Car = forwardRef(({ camera, wheelsRef }, ref) => {
-    const gltf = useLoader(GLTFLoader, '/Assets/car/scene.gltf');
+    const gltf = useLoader(GLTFLoader, '/Assets/mustang/scene.gltf');
 
     // Enable shadows on the car mesh
     gltf.scene.traverse((child) => {
-        if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
+        if (child.isMesh) { 
+            child.castShadow = false;
+            child.receiveShadow = false;
         }
     });
 
     // Extract wheels for rotation
     const wheels = {
-        leftFrontRim: gltf.scene.getObjectByName('left_front_rim'),
-        leftFrontTire: gltf.scene.getObjectByName('left_front_tire'),
-        rightFrontRim: gltf.scene.getObjectByName('right_front_rim'),
-        rightFrontTire: gltf.scene.getObjectByName('right_front_tire'),
-        rearRims: gltf.scene.getObjectByName('rear_rims'),
-        rearTires: gltf.scene.getObjectByName('rear_tires'),
+        leftFrontWheel: gltf.scene.getObjectByName('left_front_wheel'),
+        rightFrontWheel: gltf.scene.getObjectByName('right_front_wheel'),
+        rearWheels: gltf.scene.getObjectByName('rear_wheels'),
     };
 
     // Store wheels in wheelsRef
@@ -33,8 +30,8 @@ const Car = forwardRef(({ camera, wheelsRef }, ref) => {
     return (
         <RigidBody 
             type="dynamic" 
-            position={[0, 4, -1]} 
-            rotation={[0, -2, 0]} 
+            position={[0, 700, -200]} 
+            rotation={[0, -Math.PI / 1.5, 0]} 
             colliders="cuboid" 
             mass={1000}
             linearDamping={1} 
@@ -42,7 +39,7 @@ const Car = forwardRef(({ camera, wheelsRef }, ref) => {
             gravityScale={2}
             ref={ref}
         >
-            <primitive object={gltf.scene} scale={1} castShadow receiveShadow />
+            <primitive object={gltf.scene} scale={.16} castShadow receiveShadow />
         </RigidBody>
     );
 });

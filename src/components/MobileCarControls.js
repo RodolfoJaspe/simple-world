@@ -11,10 +11,10 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
     
     const [invalidStateTime, setInvalidStateTime] = useState(0);
     const [acceleration, setAcceleration] = useState(0);
-    const maxAcceleration = 50; // Max acceleration force
+    const maxAcceleration = 100; // Max acceleration force
     const accelerationStep = 0.08; // Step to increase acceleration
     const initialPosition = useRef(new THREE.Vector3(0, 4, 0));
-    const initialRotation = useRef(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, 0)));
+    const initialRotation = useRef(new THREE.Quaternion().setFromEuler(new THREE.Euler(0,  -Math.PI / 2, 0)));
     const [followCamera, setFollowCamera] = useState(false);
     const [turnAngle, setTurnAngle] = useState(0);
 
@@ -83,18 +83,15 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
     useFrame((state, delta) => {
         if (carRef.current) {
             const {
-                leftFrontRim, 
-                leftFrontTire, 
-                rightFrontRim, 
-                rightFrontTire, 
-                rearRims, 
-                rearTires
-            } = wheelsRef.current;
+                leftFrontWheel, 
+                rightFrontWheel, 
+                rearWheels, 
+                } = wheelsRef.current;
 
             const rigidBody = carRef.current;
             const carPosition = new THREE.Vector3(rigidBody.translation().x, rigidBody.translation().y, rigidBody.translation().z);
             camera.lookAt(carPosition);
-            const frontWheelPieces = [leftFrontRim, leftFrontTire, rightFrontRim, rightFrontTire];
+            const frontWheels = [leftFrontWheel,rightFrontWheel]
         
             const linvel = rigidBody.linvel();
             const angvel = rigidBody.angvel();
@@ -126,7 +123,6 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
             const speed = Math.sqrt(linvel.x * linvel.x + linvel.z * linvel.z);
 
             if (speed > 0.5) {
-                console.log(turnAngle)
                 if (0 < turnAngle && turnAngle < 1.3){
                     angvel.y -= turnAngle / 20;
                 }
@@ -150,8 +146,7 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
             // Update wheels rotation
             if (wheelsRef) {
                 const wheelRotationSpeed = acceleration * delta;
-                rearRims.rotation.x += wheelRotationSpeed
-                rearTires.rotation.x += wheelRotationSpeed
+                rearWheels.rotation.x += wheelRotationSpeed
 
                 let steerAngle = 0
                 if (0 < turnAngle && turnAngle < 1.3){
@@ -166,11 +161,11 @@ const CarControls = ({ setOrbitEnabled, setCarPosition }) => {
                 if (4.7 < turnAngle && turnAngle < 6){
                     steerAngle = -0.5
                 }
-                frontWheelPieces.forEach(piece => {
-                    let vector = new THREE.Vector3(piece.rotation.x, piece.rotation.y, steerAngle)
-                    piece.rotation.z = steerAngle
-                    piece.rotation.setFromVector3(vector, 'YZX')
-                    piece.rotation.x += wheelRotationSpeed
+                frontWheels.forEach(wheel => {
+                    let vector = new THREE.Vector3(wheel.rotation.x, wheel.rotation.y, steerAngle)
+                    wheel.rotation.z = steerAngle
+                    wheel.rotation.setFromVector3(vector, 'YZX')
+                    wheel.rotation.x += wheelRotationSpeed
                     })
                 
             }
