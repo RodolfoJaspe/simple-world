@@ -43,7 +43,7 @@ function Scene() {
     })
 
     useEffect(()=>{
-        setinItialCameraPos([0, 700, -300])
+        setinItialCameraPos([0, 660, -320])
     },[])
 
     // useEffect(() => {
