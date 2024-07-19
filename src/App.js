@@ -1,7 +1,7 @@
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { Physics, RigidBody } from '@react-three/rapier';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import "./App.css";
@@ -33,6 +33,7 @@ function Scene() {
     const { scene, camera } = useThree();
     const raycaster = useRef(new THREE.Raycaster());
     const mouse = useRef(new THREE.Vector2());
+    const [initialCameraPos, setinItialCameraPos] = useState([10,1500,0]);
 
     useFrame(() => {
         if(isMoving){
@@ -40,6 +41,10 @@ function Scene() {
             camera.lookAt(cameraState.direction); 
         }
     })
+
+    useEffect(()=>{
+        setinItialCameraPos([0, 700, -300])
+    },[])
 
     // useEffect(() => {
     //     if (billboard3) {
@@ -105,10 +110,11 @@ function Scene() {
         <>
             <PerspectiveCamera
                 makeDefault
-                position={[0, 800, 5]}
+                position={initialCameraPos}
                 fov={75}
                 near={0.1}
                 far={10000}
+                direction={[0,1000,0]}
             />
             <Physics gravity={[0, -20, 0]} integrationParameters={{ maxVelocityIterations: 16, maxVelocityFrictionIterations: 8 }}>
                 <ambientLight intensity={2} />
@@ -118,24 +124,14 @@ function Scene() {
                     castShadow
                     penumbra={1}
                     color={"white"}
-                    shadow-mapSize-width={1000}
-                    shadow-mapSize-height={1000}
-                    shadow-normalBias={1}
-                >
-                    <orthographicCamera attach="shadow-camera" args={[-400, 500, 400, -100]} />
-                </directionalLight>
+                />
                 <directionalLight
                     position={[-800, 300, -100]}
                     intensity={2}
                     castShadow
                     penumbra={1}
                     color={"blue"}
-                    shadow-mapSize-width={1000}
-                    shadow-mapSize-height={1000}
-                    shadow-normalBias={1}
-                >
-                    <orthographicCamera attach="shadow-camera" args={[-400, 500, 400, -100]} />
-                </directionalLight>
+                />
                 <directionalLight
                     position={[800, 300, 100]}
                     intensity={2}
@@ -145,9 +141,7 @@ function Scene() {
                     shadow-mapSize-width={1000}
                     shadow-mapSize-height={1000}
                     shadow-normalBias={1}
-                >
-                    <orthographicCamera attach="shadow-camera" args={[-400, 500, 400, -100]} />
-                </directionalLight>
+                />
                 {window.innerWidth > 1000 ? 
                 <DesktopCarControls setOrbitEnabled={setOrbitEnabled} carPosition={carPosition} setCarPosition={setCarPosition} camera={camera} isMoving={isMoving} setIsMoving={setIsMoving}/> : 
                 <MobileCarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition} camera={camera}/>
