@@ -34,12 +34,11 @@ const IframeTexture = ({ project }) => {
                             justifyContent: 'space-evenly'}}>
                             <div style={{
                                 // backgroundColor: "orange",
-                                textAlign: "right",
-                                paddingRight: '200px'
+                                textAlign: "right"
                             }}>
                                 {name.split(' ').map((word,i) => <h2 style={{
                                 fontSize: titleH2.fontSize,
-                                paddingLeft: titleH2.paddingLeft,
+                                paddingRight: titleH2.paddingRight,
                                 color: titleH2.color,
                                 textShadow: titleH2.textShadow,
                                 backgroundColor: titleH2.backgroundColor,
@@ -50,17 +49,31 @@ const IframeTexture = ({ project }) => {
                             </div>
                             <div style={{
                                 // backgroundColor : "purple",
-                                textAlign: "right",
-                                paddingRight: '200px'}}>
+                                textAlign: "right"}}>
                                {techStack.map((tech,i) => <p style={{
                                 fontSize: techP.fontSize,
-                                paddingLeft: techP.paddingLeft,
+                                paddingRight: techP.paddingRight,
                                 color: techP.color,
                                 margin: techP.margin,
                                 fontWeight: techP.fontWeight
                                 }} key={i}>
                                     {tech}
                                 </p>)} 
+                            </div>
+                            <div style={{
+                                // backgroundColor : "purple",
+                                textAlign: "right"}}>
+                                <a 
+                                    href={url}
+                                    target="_blank"
+                                    style={{
+                                        textDecoration:'none',
+                                        fontSize:'2rem',
+                                        color: titleH2.color,
+                                        paddingRight: titleH2.paddingRight,
+                                        textShadow: titleH2.textShadow
+                                    }}>{url.slice(8)}
+                                </a>
                             </div>
                         </div>
                         <iframe

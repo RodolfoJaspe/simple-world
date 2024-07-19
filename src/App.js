@@ -11,8 +11,10 @@ import Guitar from './components/Guitar';
 import MobileCarControls from './components/MobileCarControls';
 import PictureFrame from './components/PictureFrame';
 import ProjectsBlocks from './components/ProjectsBlocks';
+import Roof from './components/Roof';
 import Room from './components/Room';
 import Track from './components/Track';
+import Warning from './components/Warning';
 import { projects } from './data/pictureFramesData';
 import { useCameraState } from './state/CameraStateContext';
 
@@ -109,7 +111,7 @@ function Scene() {
                 far={10000}
             />
             <Physics gravity={[0, -20, 0]} integrationParameters={{ maxVelocityIterations: 16, maxVelocityFrictionIterations: 8 }}>
-                <ambientLight intensity={1} />
+                <ambientLight intensity={2} />
                 <directionalLight
                     position={[200, 500, 50]}
                     intensity={1}
@@ -165,10 +167,12 @@ function Scene() {
                 <Track />
                 {projects.map((project,i) => <PictureFrame project={project} carPosition={carPosition} setCarPosition={setCarPosition} camera={camera} key={i}/>)}
                 <ProjectsBlocks />
-                {orbitEnabled && <OrbitControls target={carPosition} />}
+                {orbitEnabled && <OrbitControls target={carPosition} maxDistance={500} minDistance={5}/>}
                 <AnimatedPlane />
                 <Room />
                 <Guitar />
+                <Warning />
+                <Roof />
             </Physics>
         </>
     );
