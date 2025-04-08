@@ -80,8 +80,8 @@ const IframeTexture = ({ project }) => {
                             src={url}
                             style={{
                                 border: 'none',
-                                width: `${width * 100}px`, // Adjust based on your needs
-                                height: `${height * 100}px`, // Adjust based on your needs
+                                width: `${width * 100}px`, 
+                                height: `${height * 100}px`, 
                             }}
                             title="Project Iframe"/>
                         <div style={{

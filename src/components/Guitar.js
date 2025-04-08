@@ -7,7 +7,7 @@ const Guitar = () => {
         const gltf = useLoader(GLTFLoader, '/Assets/guitar/scene.gltf');
 
     return (
-        <mesh position={[700,-70,-1200]} rotation={[0,-Math.PI / 5,0]}>
+        <mesh position={[700,-65,-1200]} rotation={[0,-Math.PI / 5,0]}>
             <primitive object={gltf.scene} scale={5} receiveShadow />
         </mesh>
     );

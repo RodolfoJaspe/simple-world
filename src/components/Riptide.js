@@ -14,7 +14,7 @@ const Riptide = () => {
     }, []);
 
     return (
-        <mesh position={[1300, 1000, -500]} rotation={[0, -Math.PI, 0]}>
+        <mesh position={[1300, 700, -500]} rotation={[0, -Math.PI, 0]}>
             <primitive object={gltf.scene} scale={600} receiveShadow />
             <VideoTexture 
                 videoUrl="VMuKbcYnulM" 

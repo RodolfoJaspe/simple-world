@@ -16,7 +16,6 @@ import Riptide from './components/Riptide';
 import Roof from './components/Roof';
 import Room from './components/Room';
 import Track from './components/Track';
-import Warning from './components/Warning';
 import { projects } from './data/pictureFramesData';
 import { useCameraState } from './state/CameraStateContext';
 
@@ -49,66 +48,6 @@ function Scene() {
         setinItialCameraPos([0, 660, -320])
     },[])
 
-    // useEffect(() => {
-    //     if (billboard3) {
-    //         const hilitesMesh = billboard3.scene.getObjectByName('hilites');
-    //         if (hilitesMesh) {
-    //             hilitesRef.current = hilitesMesh;
-    //             setOriginalEmissive(hilitesMesh.material.emissive.clone());
-    //             // console.log(hilitesMesh);
-    //         }
-    //     }
-    // }, [billboard3]);
-
-    // useEffect(() => {
-    //     const handleMouseMove = (event) => {
-    //         mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //         mouse.current.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    //         raycaster.current.setFromCamera(mouse.current, camera);
-
-    //         const intersects = raycaster.current.intersectObjects(scene.children, true);
-    //         if (intersects.length > 0) {
-    //             const intersectedObject = intersects[0].object;
-    //             if (intersectedObject === hilitesRef.current && intersects[0].face.normal.dot(camera.getWorldDirection(new THREE.Vector3())) < 0) {
-    //                 setIsHovering(true);
-    //                 document.body.style.cursor = 'pointer';
-    //                 hilitesRef.current.material.emissive.set('#333300');
-    //             } else {
-    //                 setIsHovering(false);
-    //                 document.body.style.cursor = 'default';
-    //                 hilitesRef.current.material.emissive.copy(originalEmissive);
-    //             }
-    //         } else {
-    //             setIsHovering(false);
-    //             document.body.style.cursor = 'default';
-    //             if (hilitesRef.current) {
-    //                 hilitesRef.current.material.emissive.copy(originalEmissive);
-    //             }
-    //         }
-    //     };
-
-    //     const handleMouseClick = (event) => {
-    //         mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //         mouse.current.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    //         raycaster.current.setFromCamera(mouse.current, camera);
-
-    //         const intersects = raycaster.current.intersectObjects(scene.children, true);
-    //         if (intersects.length > 0) {
-    //             const intersectedObject = intersects[0].object;
-    //             if (intersectedObject === hilitesRef.current && intersects[0].face.normal.dot(camera.getWorldDirection(new THREE.Vector3())) < 0) {
-    //                 console.log("Clicked on hilites");
-    //                 // Perform action on click
-    //             }
-    //         }
-    //     };
-
-    //     window.addEventListener('mousemove', handleMouseMove);
-    //     window.addEventListener('click', handleMouseClick);
-    //     return () => {
-    //         window.removeEventListener('mousemove', handleMouseMove);
-    //         window.removeEventListener('click', handleMouseClick);
-    //     };
-    // }, [camera, scene, originalEmissive]);
     return (
         <>
             <PerspectiveCamera
@@ -168,7 +107,6 @@ function Scene() {
                 <AnimatedPlane />
                 <Room />
                 <Guitar />
-                <Warning />
                 <Roof />
                 <Ball />
                 <Riptide />

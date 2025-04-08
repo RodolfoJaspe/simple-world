@@ -27,7 +27,8 @@ const VideoTexture = ({ videoUrl, position, rotation, scale }) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     width: '100%',
-                    // backgroundColor: 'red'
+       
+                    zIndex: '-100'
                 }}>
                 <div onMouseOver={() => setVideoVisibility(true)} onMouseLeave={() => setVideoVisibility(false)}>
                     <iframe
@@ -38,12 +39,13 @@ const VideoTexture = ({ videoUrl, position, rotation, scale }) => {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         title="Embedded YouTube video"
-                        style={{scale: videoVisibility? '1': '0', zIndex: '-100'}}
+                        style={{scale: videoVisibility? '1': '0', transition: '1s'}}
                         className='riptide-video'
                     />
                 </div>    
                 
             </Html>
+
         </mesh>
     );
 };
