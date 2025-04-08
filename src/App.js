@@ -29,6 +29,8 @@ function Scene() {
     // const boat = useLoader(GLTFLoader, '/Assets/boat/scene.gltf');
     // const billboard3 = useLoader(GLTFLoader, '/Assets/billboards/billboard3/scene.gltf');
     const ramp = useLoader(GLTFLoader, '/Assets/ramp/scene.gltf');
+    const ramp2 = useLoader(GLTFLoader, '/Assets/ramp2/scene.gltf');
+
     // const hilitesRef = useRef();
 
     const [isMoving, setIsMoving] = useState(false);
@@ -88,17 +90,11 @@ function Scene() {
                 <DesktopCarControls setOrbitEnabled={setOrbitEnabled} carPosition={carPosition} setCarPosition={setCarPosition} camera={camera} isMoving={isMoving} setIsMoving={setIsMoving}/> : 
                 <MobileCarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition} camera={camera}/>
                 }
-                {/* <primitive object={boat.scene} scale={.4} position={[-428, -80, -108]} rotation={[0, Math.PI / .85, 0]} />
-                {billboard3 && (
-                    <primitive
-                        object={billboard3.scene}
-                        scale={15}
-                        position={[-394, -27, -54]}
-                        rotation={[0, -Math.PI / 1.1, 0]}
-                    />
-                )} */}
                 <RigidBody colliders='trimesh' type='fixed'>
                     <primitive object={ramp.scene} scale={4} position={[-90, 678, -200]} rotation={[0, Math.PI / 2, 0]} />
+                </RigidBody>
+                <RigidBody colliders='trimesh' type='fixed'>
+                    <primitive object={ramp2.scene} scale={150} position={[-920, 690, 0]} rotation={[0, Math.PI / 2, 0]} />
                 </RigidBody>
                 <Track />
                 {projects.map((project,i) => <PictureFrame project={project} carPosition={carPosition} setCarPosition={setCarPosition} camera={camera} key={i}/>)}
