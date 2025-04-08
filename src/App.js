@@ -168,8 +168,8 @@ function Scene() {
                 <Guitar />
                 <Warning />
                 <Roof />
-                {/* <Ball />
-                <Riptide /> */}
+                <Ball />
+                <Riptide />
             </Physics>
         </>
     );
