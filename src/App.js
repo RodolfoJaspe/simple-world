@@ -18,6 +18,7 @@ import Warning from './components/Warning';
 import { projects } from './data/pictureFramesData';
 import { useCameraState } from './state/CameraStateContext';
 
+
 function Scene() {
     const [orbitEnabled, setOrbitEnabled] = useState(true);
     const [carPosition, setCarPosition] = useState([0, 0, 0]);
@@ -167,6 +168,8 @@ function Scene() {
                 <Guitar />
                 <Warning />
                 <Roof />
+                {/* <Ball />
+                <Riptide /> */}
             </Physics>
         </>
     );

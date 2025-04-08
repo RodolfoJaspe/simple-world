@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 const Car = forwardRef(({ camera, wheelsRef }, ref) => {
-    const gltf = useLoader(GLTFLoader, '/Assets/mustang/scene.gltf');
+    const gltf = useLoader(GLTFLoader, '/Assets/camaro/scene.gltf');
 
     // Enable shadows on the car mesh
     gltf.scene.traverse((child) => {
@@ -39,7 +39,7 @@ const Car = forwardRef(({ camera, wheelsRef }, ref) => {
             gravityScale={2}
             ref={ref}
         >
-            <primitive object={gltf.scene} scale={.16} castShadow receiveShadow />
+            <primitive object={gltf.scene} scale={1} castShadow receiveShadow />
         </RigidBody>
     );
 });

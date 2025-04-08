@@ -7,7 +7,7 @@ const Warning = () => {
         const gltf = useLoader(GLTFLoader, '/Assets/warning/scene.gltf');
 
     return (
-        <mesh position={[-1640,-70,-480]} rotation={[0,0,0]}>
+        <mesh position={[-1640,-80,-480]} rotation={[0,0,0]}>
             <primitive object={gltf.scene} scale={6} receiveShadow />
         </mesh>
     );
