@@ -13,4 +13,4 @@ const Guitar = () => {
     );
 };
 
-export default Guitar;
+export default React.memo(Guitar);

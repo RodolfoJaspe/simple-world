@@ -5,7 +5,7 @@ import React from 'react';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-export default function Room () {
+function Room () {
     const gltf = useLoader(GLTFLoader, '/Assets/room/scene.gltf');
 
     gltf.scene.traverse((child) => {
@@ -26,3 +26,5 @@ export default function Room () {
         </RigidBody>
     );
 };
+
+export default React.memo(Room)

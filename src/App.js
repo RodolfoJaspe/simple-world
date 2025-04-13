@@ -1,10 +1,11 @@
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { Physics, RigidBody } from '@react-three/rapier';
-import React, { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
+import React, { useEffect, useState } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import "./App.css";
+import keysIcon from './assets/controls/arrowkeys.png';
+import mouseIcon from './assets/controls/mouse.png';
 import AnimatedPlane from './components/AnimatedPlane';
 import Ball from './components/Ball';
 import DesktopCarControls from './components/DesktopCarControls';
@@ -20,23 +21,17 @@ import { projects } from './data/pictureFramesData';
 import { useCameraState } from './state/CameraStateContext';
 
 
+
 function Scene() {
     const [orbitEnabled, setOrbitEnabled] = useState(true);
     const [carPosition, setCarPosition] = useState([0, 0, 0]);
-    const [isHovering, setIsHovering] = useState(false);
-    const [originalEmissive, setOriginalEmissive] = useState(new THREE.Color(0x000000));
     const { cameraState } = useCameraState();
-    // const boat = useLoader(GLTFLoader, '/Assets/boat/scene.gltf');
-    // const billboard3 = useLoader(GLTFLoader, '/Assets/billboards/billboard3/scene.gltf');
+
     const ramp = useLoader(GLTFLoader, '/Assets/ramp/scene.gltf');
     const ramp2 = useLoader(GLTFLoader, '/Assets/ramp2/scene.gltf');
 
-    // const hilitesRef = useRef();
-
     const [isMoving, setIsMoving] = useState(false);
-    const { scene, camera } = useThree();
-    const raycaster = useRef(new THREE.Raycaster());
-    const mouse = useRef(new THREE.Vector2());
+    const { camera } = useThree();
     const [initialCameraPos, setinItialCameraPos] = useState([10,1500,0]);
 
     useFrame(() => {
@@ -47,7 +42,7 @@ function Scene() {
     })
 
     useEffect(()=>{
-        setinItialCameraPos([0, 660, -320])
+        setinItialCameraPos([-2, 682.5, -206]) // camera starts close to car looking up at walls 
     },[])
 
     return (
@@ -60,7 +55,10 @@ function Scene() {
                 far={10000}
                 direction={[0,1000,0]}
             />
-            <Physics gravity={[0, -20, 0]} integrationParameters={{ maxVelocityIterations: 16, maxVelocityFrictionIterations: 8 }}>
+            <Physics 
+            gravity={[0, -20, 0]} 
+            tolerance={0.01}
+            integrationParameters={{ dt: 1 / 60, maxVelocityIterations: 8, maxVelocityFrictionIterations: 4 }}>
                 <ambientLight intensity={2} />
                 <directionalLight
                     position={[200, 500, 50]}
@@ -82,9 +80,6 @@ function Scene() {
                     castShadow
                     penumbra={1}
                     color={"red"}
-                    shadow-mapSize-width={1000}
-                    shadow-mapSize-height={1000}
-                    shadow-normalBias={1}
                 />
                 {window.innerWidth > 1000 ? 
                 <DesktopCarControls setOrbitEnabled={setOrbitEnabled} carPosition={carPosition} setCarPosition={setCarPosition} camera={camera} isMoving={isMoving} setIsMoving={setIsMoving}/> : 
@@ -118,6 +113,12 @@ function App() {
                 <Scene />
             </Canvas>
             <div id="joystick-container" style={{ position: 'absolute', left: '50%', bottom: '50px', transform: 'translateX(-50%)' }}></div>
+            <div style={{position: 'absolute', right: 0, bottom: 0, display: 'flex', flexDirection: 'column', width: '200px', alignItems: 'center', textAlign: 'center', opacity: .6, color: 'white', fontFamily: ''}}>
+                <img src={mouseIcon} style={{width: '50px'}}/>
+                <h3>Look / Interact</h3>
+                <img src={keysIcon} style={{width: '100px'}}/>
+                <h3>Drive</h3>
+            </div>
         </div>
     );
 }

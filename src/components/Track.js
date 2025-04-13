@@ -5,7 +5,7 @@ import React from 'react';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-export default function Track () {
+function Track () {
     const gltf = useLoader(GLTFLoader, '/Assets/track2/scene.gltf');
 
     gltf.scene.traverse((child) => {
@@ -26,3 +26,5 @@ export default function Track () {
         </RigidBody>
     );
 };
+
+export default React.memo(Track)

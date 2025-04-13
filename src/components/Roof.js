@@ -13,4 +13,4 @@ const Roof = () => {
     );
 };
 
-export default Roof;
+export default React.memo(Roof);

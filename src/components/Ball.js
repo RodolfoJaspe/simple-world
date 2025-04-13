@@ -15,4 +15,4 @@ const Ball = () => {
     );
 };
 
-export default Ball;
+export default React.memo(Ball);

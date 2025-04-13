@@ -122,4 +122,4 @@ const PictureFrame = ({ project, carPosition, setCarPosition, camera }) => {
     );
 };
 
-export default PictureFrame;
+export default React.memo(PictureFrame);

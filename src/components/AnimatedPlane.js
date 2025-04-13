@@ -40,4 +40,4 @@ const AnimatedPlane = () => {
     );
 };
 
-export default AnimatedPlane;
+export default React.memo(AnimatedPlane);

@@ -26,4 +26,4 @@ const Riptide = () => {
     );
 };
 
-export default Riptide;
+export default React.memo(Riptide);

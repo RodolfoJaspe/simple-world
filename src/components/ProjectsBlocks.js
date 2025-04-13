@@ -13,4 +13,4 @@ const ProjectsBlocks = () => {
     );
 };
 
-export default ProjectsBlocks;
+export default React.memo(ProjectsBlocks);
