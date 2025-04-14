@@ -30,7 +30,7 @@ const Car = forwardRef(({ camera, wheelsRef }, ref) => {
     return (
         <RigidBody 
             type="dynamic" 
-            position={[0, 750, -200]} // initial car drop position
+            position={[0, 700, -200]} // initial car drop position
             rotation={[0, Math.PI / 2, 0]} // initial car drop rotation
             colliders="cuboid" 
             mass={1000}

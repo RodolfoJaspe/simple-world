@@ -19,6 +19,7 @@ import Room from './components/Room';
 import Track from './components/Track';
 import { projects } from './data/pictureFramesData';
 import { useCameraState } from './state/CameraStateContext';
+import { ResetStateProvider, useResetState } from './state/ResetStateContext';
 
 
 
@@ -108,17 +109,63 @@ function Scene() {
 
 function App() {
     return (
-        <div className='App'>
-            <Canvas shadows>
-                <Scene />
-            </Canvas>
-            <div id="joystick-container" style={{ position: 'absolute', left: '50%', bottom: '50px', transform: 'translateX(-50%)' }}></div>
-            <div style={{position: 'absolute', right: 0, bottom: 0, display: 'flex', flexDirection: 'column', width: '200px', alignItems: 'center', textAlign: 'center', opacity: .6, color: 'white', fontFamily: ''}}>
-                <img src={mouseIcon} style={{width: '50px'}}/>
-                <h3>Look / Interact</h3>
-                <img src={keysIcon} style={{width: '100px'}}/>
-                <h3>Drive</h3>
+        <ResetStateProvider>
+            <div className='App'>
+                <Canvas shadows>
+                    <Scene />
+                </Canvas>
+                <div id="joystick-container" style={{ position: 'absolute', left: '50%', bottom: '50px', transform: 'translateX(-50%)' }}></div>
+                <div style={{position: 'absolute', right: 0, bottom: 0, display: 'flex', flexDirection: 'column', width: '200px', alignItems: 'center', textAlign: 'center', opacity: .6, color: 'white'}}>
+                    <img src={mouseIcon} style={{width: '50px'}}/>
+                    <h3>Look / Interact</h3>
+                    <img src={keysIcon} style={{width: '100px'}}/>
+                    <h3>Drive</h3>
+                </div>
+                <ResetButton />
             </div>
+        </ResetStateProvider>
+    );
+}
+
+function ResetButton() {
+    const { triggerReset } = useResetState();
+
+    return (
+        <div 
+            style={{
+                position: 'absolute',
+                left: '20px',
+                bottom: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                width: '80px',
+                height: '80px',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                color: '#cc0000',
+                backgroundColor: '#ff4444',
+                padding: '5px',
+                borderRadius: '50%',
+                boxShadow: '0 5px 0 #cc0000, 0 8px 10px rgba(0,0,0,0.3)',
+                cursor: 'pointer',
+                transition: 'all 0.1s ease',
+                transform: 'translateY(0)',
+                userSelect: 'none',
+                opacity: .9,
+                ':hover': {
+                    backgroundColor: '#ff6666',
+                    transform: 'translateY(2px)',
+                    boxShadow: '0 3px 0 #cc0000, 0 5px 5px rgba(0,0,0,0.2)'
+                },
+                ':active': {
+                    transform: 'translateY(5px)',
+                    boxShadow: '0 0 0 #cc0000, 0 2px 2px rgba(0,0,0,0.1)'
+                }
+            }}
+            onClick={triggerReset}
+        >
+            <h3 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Reset</h3>
         </div>
     );
 }
