@@ -1,11 +1,12 @@
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { Physics, RigidBody } from '@react-three/rapier';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import "./App.css";
 import keysIcon from './assets/controls/arrowkeys.png';
 import mouseIcon from './assets/controls/mouse.png';
+import AICar from './components/AICar';
 import AnimatedPlane from './components/AnimatedPlane';
 import Ball from './components/Ball';
 import DesktopCarControls from './components/DesktopCarControls';
@@ -102,12 +103,15 @@ function Scene() {
                 <Roof />
                 <Ball />
                 <Riptide />
+                <AICar />
             </Physics>
         </>
     );
 }
 
 function App() {
+    const carRef = useRef();
+
     return (
         <ResetStateProvider>
             <div className='App'>

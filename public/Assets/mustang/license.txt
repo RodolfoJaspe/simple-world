@@ -1,0 +1,11 @@
+Model Information:
+* title:	'67 Mustang
+* source:	https://sketchfab.com/3d-models/67-mustang-e06683c225c24937bb0dab09a17840da
+* author:	Nick Broad (https://sketchfab.com/nickbroad)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "'67 Mustang" (https://sketchfab.com/3d-models/67-mustang-e06683c225c24937bb0dab09a17840da) by Nick Broad (https://sketchfab.com/nickbroad) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
