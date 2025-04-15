@@ -172,20 +172,31 @@ const CarControls = ({ setOrbitEnabled, carPosition, setCarPosition, camera, isM
 
             // Always update camera and other visual elements
             if (isMoving) {
-                const currentCarPos = new THREE.Vector3(
-                    rigidBody.translation().x,
-                    rigidBody.translation().y,
-                    rigidBody.translation().z
-                );
-                setCarPosition(currentCarPos);
+                setCarPosition(currentPos);
                 
+                // Get velocity and forward direction
+                const velocity = rigidBody.linvel();
+                const forward = forwardVec.current.clone().applyQuaternion(rigidBody.rotation());
+                
+                // Calculate dot product of velocity and forward direction
+                const velocityMagnitude = Math.sqrt(velocity.x * velocity.x + velocity.z * velocity.z);
+                const dotProduct = (velocity.x * forward.x + velocity.z * forward.z) / velocityMagnitude;
+                
+                // If dot product is negative, we're moving backwards relative to car's forward direction
+                const isReversing = dotProduct < -0.1;
+                
+                // Calculate camera offset based on movement direction
                 const offset = new THREE.Vector3(0, 1, 0);
-                const carDirection = new THREE.Vector3(0, 1.5, 6).applyQuaternion(rigidBody.rotation());
-                const targetCameraPos = currentCarPos.clone().add(carDirection.clone().multiplyScalar(1)).add(offset);
+                const carDirection = new THREE.Vector3(0, 1.5, isReversing ? -6 : 6)
+                    .applyQuaternion(rigidBody.rotation());
                 
+                const targetCameraPos = currentPos.clone()
+                    .add(carDirection.clone().multiplyScalar(1))
+                    .add(offset);
+
                 // Smooth camera movement
                 lastCameraPos.current.lerp(targetCameraPos, cameraLerpFactor);
-                lastCameraTarget.current.lerp(currentCarPos, cameraLerpFactor);
+                lastCameraTarget.current.lerp(currentPos, cameraLerpFactor);
                 
                 if (!vectorsAreClose(cameraState.position, lastCameraPos.current)) {
                     setCameraState({ 
@@ -194,14 +205,10 @@ const CarControls = ({ setOrbitEnabled, carPosition, setCarPosition, camera, isM
                         direction: lastCameraTarget.current 
                     });
                 }
+                
                 setOrbitEnabled(false);
             } else {
-                const currentCarPos = new THREE.Vector3(
-                    rigidBody.translation().x,
-                    rigidBody.translation().y,
-                    rigidBody.translation().z
-                );
-                setCarPosition(currentCarPos);
+                setCarPosition(currentPos);
                 setOrbitEnabled(true);
             }
 
