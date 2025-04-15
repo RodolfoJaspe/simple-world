@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { useCameraState } from '../state/CameraStateContext';
 import { useResetState } from '../state/ResetStateContext';
 import Car from './Car';
+import CarSounds from './CarSounds';
 
 //gpt
 function vectorsAreClose(v1, v2, tolerance = 0.1) {
@@ -44,6 +45,9 @@ const CarControls = ({ setOrbitEnabled, carPosition, setCarPosition, camera, isM
         ArrowLeft: false,
         ArrowRight: false,
     }).current;
+
+    // Calculate speed for sound effects
+    const [speed, setSpeed] = useState(0);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -161,6 +165,9 @@ const CarControls = ({ setOrbitEnabled, carPosition, setCarPosition, camera, isM
 
                 rigidBody.setLinvel(linvel, true);
                 rigidBody.setAngvel(angvel, true);
+
+                // Update speed for sound effects
+                setSpeed(speed);
             }
 
             // Always update camera and other visual elements
@@ -278,7 +285,12 @@ const CarControls = ({ setOrbitEnabled, carPosition, setCarPosition, camera, isM
         }
     }, [invalidStateTime]);
 
-    return <Car ref={carRef} wheelsRef={wheelsRef} camera={camera} />;
+    return (
+        <>
+            <Car ref={carRef} wheelsRef={wheelsRef} camera={camera} />
+            <CarSounds acceleration={acceleration} speed={speed} />
+        </>
+    );
 };
 
 export default CarControls;
