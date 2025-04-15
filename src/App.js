@@ -88,7 +88,7 @@ function Scene() {
                 <MobileCarControls setOrbitEnabled={setOrbitEnabled} setCarPosition={setCarPosition} camera={camera}/>
                 }
                 <RigidBody colliders='trimesh' type='fixed'>
-                    <primitive object={ramp.scene} scale={4} position={[-90, 678, -200]} rotation={[0, Math.PI / 2, 0]} />
+                    <primitive object={ramp.scene} scale={4} position={[-90, 679.899, -200]} rotation={[0, Math.PI / 2, 0]} />
                 </RigidBody>
                 <RigidBody colliders='trimesh' type='fixed'>
                     <primitive object={ramp2.scene} scale={150} position={[-920, 690, 0]} rotation={[0, Math.PI / 2, 0]} />
