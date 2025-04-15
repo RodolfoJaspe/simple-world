@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const CarSounds = ({ acceleration, speed }) => {
     const audioListener = useRef(new THREE.AudioListener());
     const engineSound = useRef(new THREE.Audio(audioListener.current));
     const audioLoader = useRef(new THREE.AudioLoader());
+    const [isSoundEnabled, setIsSoundEnabled] = useState(false);
 
     // Gear ranges and pitch settings
     const gearRanges = {
@@ -38,6 +39,20 @@ const CarSounds = ({ acceleration, speed }) => {
         return gear.basePitch + (gearProgress * (gear.maxPitch - gear.basePitch));
     };
 
+    const enableSound = () => {
+        if (!isSoundEnabled) {
+            setIsSoundEnabled(true);
+            if (engineSound.current && engineSound.current.buffer) {
+                try {
+                    engineSound.current.play();
+                    console.log('Sound enabled and playing');
+                } catch (error) {
+                    console.error('Error playing sound after enabling:', error);
+                }
+            }
+        }
+    };
+
     useEffect(() => {
         console.log('Attempting to load engine sound...');
         
@@ -49,12 +64,23 @@ const CarSounds = ({ acceleration, speed }) => {
                 engineSound.current.setBuffer(buffer);
                 engineSound.current.setLoop(true);
                 engineSound.current.setVolume(0.5);
-                try {
-                    engineSound.current.play();
-                    console.log('Engine sound started playing');
-                } catch (error) {
-                    console.error('Error playing engine sound:', error);
-                }
+                
+                // Try to play sound after user interaction
+                const handleFirstInteraction = () => {
+                    try {
+                        engineSound.current.play();
+                        console.log('Engine sound started playing');
+                        setIsSoundEnabled(true);
+                    } catch (error) {
+                        console.error('Error playing engine sound:', error);
+                        // Sound will be enabled when user interacts
+                    }
+                    document.removeEventListener('click', handleFirstInteraction);
+                    document.removeEventListener('keydown', handleFirstInteraction);
+                };
+
+                document.addEventListener('click', handleFirstInteraction);
+                document.addEventListener('keydown', handleFirstInteraction);
             },
             (xhr) => {
                 console.log('Loading progress:', (xhr.loaded / xhr.total) * 100 + '%');
@@ -66,7 +92,9 @@ const CarSounds = ({ acceleration, speed }) => {
 
         return () => {
             console.log('Cleaning up engine sound');
-            engineSound.current.stop();
+            if (engineSound.current) {
+                engineSound.current.stop();
+            }
         };
     }, []);
 
